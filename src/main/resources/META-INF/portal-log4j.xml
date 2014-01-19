@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+        <appender name="RollingFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+                <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+                		<!--
+                		
+                		   http://logging.apache.org/log4j/extras/
+                		   Apache Extras™ for Apache log4j™ is a jar file full of additional functionality for log4j 1.2.x.
+                		   
+                		   https://logging.apache.org/log4j/companions/apidocs/org/apache/log4j/rolling/TimeBasedRollingPolicy.html 
+                		   
+                		   TimeBasedRollingPolicy supports automatic file compression. 
+                		   This feature is enabled if the value of the FileNamePattern option ends with .gz or .zip
+                		   
+                		   Decoupling the location of the active log file and the archived log files
+                		   The active file is defined as the log file for the current period whereas archived files 
+                		   are those files which have been rolled over in previous periods.
+
+							By setting the ActiveFileName option you can decouple the location of the active log file
+							and the location of the archived log files. 
+                		
+                		-->
+                        <param name="FileNamePattern" value="@liferay.home@/logs/slf4j-logging-sample-portlet.%d{yyyy-MM-dd}.log.zip" />
+                        <param name="ActiveFileName" value="@liferay.home@/logs/slf4j-logging-sample-portlet.log" />
+                </rollingPolicy>
+
+                <layout class="org.apache.log4j.EnhancedPatternLayout">
+                        <param name="ConversionPattern" value="%d{yyyy/MM/dd HH\:mm\:ss} %-5p [%t][%c{1}:%L] %m%n" />
+                </layout>
+        </appender>
+
+        <logger name="it.dsigno.liferay.portlet">
+                <level value="DEBUG" />
+                <appender-ref ref="RollingFileAppender" />
+        </logger>
+        
+</log4j:configuration>
