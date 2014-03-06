@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="it.dsigno.liferay.sb" auto-namespace-tables="true">
+	<author>@denissignoretto</author>
+	<namespace>IT_DSIGNO</namespace>
+	<entity name="Logger" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="loggerId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="logMessage" type="String" />
+	</entity>
+</service-builder>
