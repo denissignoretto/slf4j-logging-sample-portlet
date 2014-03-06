@@ -11,6 +11,8 @@
 	<properties>
 		<liferay.version>6.2.0-ga1</liferay.version>
 		<liferay.maven.plugin.version>6.2.0-ga1</liferay.maven.plugin.version>
+		<liferay.auto.deploy.dir>${LR_AUTO_DEPLOY_DIR}</liferay.auto.deploy.dir>
+		<liferay.app.server.portal.dir>${LR_APP_SERVER_PORTAL_DIR}</liferay.app.server.portal.dir>	
 		<slf4j-api.version>1.7.2</slf4j-api.version>
 	</properties>
 	

@@ -1,6 +1,8 @@
 package it.dsigno.liferay.portlet;
 
 
+import it.dsigno.liferay.sb.service.LoggerLocalServiceUtil;
+
 import java.io.IOException;
 
 import javax.portlet.ActionRequest;
@@ -13,13 +15,15 @@ import javax.portlet.RenderResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
  * Slf4JLiferayLoggingPortlet
  */
 public class Slf4JLiferayLoggingPortlet extends MVCPortlet {
-	
 	
 	public final static String GREETING_PARAM_NAME = "greeting";
 	
@@ -49,6 +53,23 @@ public class Slf4JLiferayLoggingPortlet extends MVCPortlet {
 		String greetingParamValue = actionRequest.getParameter(GREETING_PARAM_NAME);			
 		if (greetingParamValue != null) {
 			_logger.info("Greeting ActionRequest Parameter Value=" +  greetingParamValue);
+		
+			if (PortalUtil.getUserId(actionRequest) > 0) {
+				try {
+					_logger.info("Inserting Log messag to Logger Service Builder: " +  greetingParamValue);
+					LoggerLocalServiceUtil.addLogMessage(PortalUtil.getUserId(actionRequest), greetingParamValue);
+					_logger.info("Insertion of message to Logger Service Builder, completed !!");
+					
+				} catch (PortalException e) {
+					_logger.error("Unexpected error adding log string to service builder.");
+					e.printStackTrace();
+	
+				} catch (SystemException e) {
+					
+					_logger.error("Unexpected error adding log string to service builder.");
+					e.printStackTrace();
+				}
+		}
 			actionResponse.setRenderParameter(GREETING_PARAM_NAME, greetingParamValue);
 		}
 	}
